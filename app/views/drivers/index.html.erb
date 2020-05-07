@@ -5,14 +5,16 @@
 <ul>
   <% @drivers %>
   <% @drivers.sort.each do |driver|  %>
-    <li>
-      <%= driver.name %>
-      <%= driver.vin %>
-      <%= driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
-      <%= button_to "#{driver.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(driver.id), method: :patch, data: {confirm: "Are you sure you want to set #{driver.name} as inactive? They have completed #{driver.trips.length} number of trips"} %> 
-      <%= button_to "#{driver.available ? "AVAILABLE" : "UNAVAILABLE"}", driver_available_path(driver.id), method: :patch %> 
-      <%= button_to "Edit Task", edit_driver_path(driver.id), method: :get %> 
-    </li>
+    <% if driver.is_active%>
+      <li>
+        <%= driver.name %>
+        <%= driver.vin %>
+        <%= driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
+        <%= button_to "#{driver.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(driver.id), method: :patch, data: {confirm: "Are you sure you want to set #{driver.name} as inactive? They have completed #{driver.trips.length} number of trips"} %> 
+        <%= button_to "#{driver.available ? "AVAILABLE" : "UNAVAILABLE"}", driver_available_path(driver.id), method: :patch %> 
+        <%= button_to "Edit Task", edit_driver_path(driver.id), method: :get %> 
+      </li>
+    <% end %>
   <% end %>
 </ul>
 <%= link_to "Add Driver", new_driver_path %>
