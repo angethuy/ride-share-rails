@@ -1,0 +1,10 @@
+<h1>Specific Driver</h1>
+
+<h1>Driver Info:</h1>
+<ul>
+  Name: <%= @driver.name %> <br>
+  VIN: <%= @driver.vin %> <br>
+  Status: <%= @driver.available ? "AVAILABLE" : "UNAVAILABLE" %>
+</ul>
+
+<%= link_to "Edit Driver Info", edit_driver_path %>
