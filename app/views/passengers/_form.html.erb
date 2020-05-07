@@ -1,0 +1,16 @@
+<%# TODO: Need to add in error handling %>
+
+<%= form_with model: @passenger, class: 'create-passenger' do |f| %>
+  <p>Please provide the following information to edit your passenger in our database:</p>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :phone_num %>
+  <%= f.text_field :phone_num %>
+
+  <%= f.label :is_active %>
+  <%= f.select :is_active, [true,false] %>
+
+  <%= f.submit "#{action_name} Passenger", class: "passenger-button" %>
+<% end %>

@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   # Custom Routes
   patch '/drivers/:id/available', to: 'drivers#available', as: 'driver_available'
   patch '/drivers/:id/active', to: 'drivers#active', as: 'driver_active'
-
+  patch '/passengers/:id/active', to: 'passengers#active', as: 'passenger_active'
 end
