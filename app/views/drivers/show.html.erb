@@ -4,7 +4,8 @@
 <div>
   Name: <%= @driver.name %> <br>
   VIN: <%= @driver.vin %> <br>
-  Status: <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %>
+  Status: <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
+  Total Earnings: $<%= @driver.trips.map{|trip| [(trip.cost - 1.65) * 0.8, 0].max}.sum %>
 </div>
 
 <br>
