@@ -15,4 +15,8 @@
 /* Custom bootstrap variables must be set or imported *before* bootstrap. */
 @import "bootstrap";
 
+html {
+  background-color: pink;
+}
+
 @import "**/*";
