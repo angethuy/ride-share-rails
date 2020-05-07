@@ -8,6 +8,4 @@ Rails.application.routes.draw do
   patch '/drivers/:id/available', to: 'drivers#available', as: 'driver_available'
   patch '/drivers/:id/active', to: 'drivers#active', as: 'driver_active'
 
-
-
 end

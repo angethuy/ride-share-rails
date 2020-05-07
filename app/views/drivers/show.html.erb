@@ -19,6 +19,10 @@
   Average Rating: <%= (total_ratings.to_f / @driver.trips.length).round(2)  %>
 </div>
 
+<div>
+  <%= button_to "#{@driver.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch %>
+</div>
+
 <br>
 
 <% if @driver.is_active %>
