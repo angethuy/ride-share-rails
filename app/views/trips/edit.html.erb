@@ -1,5 +1,7 @@
 <%# TODO: Need to add in error handling %>
 
+<%# Only allowing the editing of rating and is_archive since the rest of the data should be fixed (i.e. the driver a trip cannot be changed after the trip is finished) %>
+
 <%= form_with model: @trip, class: 'create-trip' do |f| %>
   <p>Please provide the following information to edit your trip in our database:</p>
 
