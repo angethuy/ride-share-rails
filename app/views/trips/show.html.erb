@@ -1,13 +1,17 @@
 <h1>Trip #<%= @trip.id %></h1>
 
+<% payment_to_driver = ([@trip.cost - 1.65, 0].max * 0.8).round(2) %>
+
 <h1>Trip Info:</h1>
 <div>
   Trip ID: <%= @trip.id %> <br> 
   Date: <%= @trip.date %> <br>
-  Rating: <%= @trip.rating %> <br>
-  Cost: $<%= @trip.cost %> <br>
+  Rating: <%= @trip.rating %> <br><br>
+  Revenue: $<%= @trip.cost %> <br>
+  Payment to Driver: #<%= payment_to_driver %> <br>
+  Total Profit: #<%= (@trip.cost - payment_to_driver).round(2) %> <br><br>
   Passenger: <%= link_to "#{@trip.passenger.name} (PID: #{@trip.passenger_id})", passenger_path(@trip.passenger_id) %> <br>
-  Driver: <%= link_to "#{@trip.driver.name} (PID: #{@trip.driver_id})", driver_path(@trip.driver_id) %> 
+  Driver: <%= link_to "#{@trip.driver.name} (PID: #{@trip.driver_id})", driver_path(@trip.driver_id) %>
 </div>
 
 <div>
