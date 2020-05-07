@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_022813) do
+ActiveRecord::Schema.define(version: 2020_05_07_045309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_022813) do
     t.boolean "available"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_active", default: true
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_022813) do
     t.string "phone_num"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_active", default: true
   end
 
   create_table "trips", force: :cascade do |t|
@@ -38,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_022813) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "driver_id"
     t.bigint "passenger_id"
+    t.boolean "is_archive", default: false
     t.index ["driver_id"], name: "index_trips_on_driver_id"
     t.index ["passenger_id"], name: "index_trips_on_passenger_id"
   end
