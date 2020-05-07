@@ -1,0 +1,17 @@
+<h1>PASSENGERS</h1>
+
+<h3>All active passengers:</h3>
+
+<ul>
+  <% @passengers.sort.each do |passenger|  %>
+    <% if passenger.is_active%>
+      <li>
+        <%= link_to passenger.name , passenger_path(passenger.id) %>
+        <%= passenger.phone_num %>
+        <%= button_to "#{passenger.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(passenger.id), method: :patch, data: {confirm: "Are you sure you want to set #{passenger.name} as inactive? They have taken #{passenger.trips.length} number of trips"} %> 
+        <%= button_to "Edit Passenger", edit_passenger_path(passenger.id), method: :get %> 
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+<%= link_to "Add Passenger", new_passenger_path %>

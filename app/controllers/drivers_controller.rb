@@ -51,7 +51,7 @@ class DriversController < ApplicationController
     end
   end
 
-  # is there a way to combine
+  # TODO: consider combining active and available by passing in additional params
   def active
     driver = Driver.find_by(id: params[:id])
 
@@ -62,7 +62,7 @@ class DriversController < ApplicationController
 
     driver.is_active = !driver.is_active
     driver.save
-    redirect_to drivers_path
+    redirect_to params[:source_call] == "show" ? driver_path(driver.id): drivers_path
   end
 
   def available
