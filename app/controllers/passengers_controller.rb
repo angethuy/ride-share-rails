@@ -51,6 +51,20 @@ class PassengersController < ApplicationController
     end
   end
 
+  def destroy
+    passenger = Passenger.find_by(id: params[:id])
+
+    if passenger.nil?
+      head :not_found
+      return
+    end
+
+    passenger.destroy
+
+    redirect_to passengers_path
+    return
+  end
+
   def active
     passenger = Passenger.find_by(id: params[:id])
 
@@ -62,6 +76,10 @@ class PassengersController < ApplicationController
     passenger.is_active = !passenger.is_active
     passenger.save
     redirect_to params[:source_call] == "show" ? passenger_path(passenger.id): passengers_path
+  end
+
+  def newtrip
+
   end
 
   private

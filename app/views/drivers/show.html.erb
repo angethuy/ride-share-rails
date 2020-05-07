@@ -19,8 +19,13 @@
   Average Rating: <%= (total_ratings.to_f / @driver.trips.length).round(2)  %>
 </div>
 
+<%# Deactivate driver if they have driven before, otherwise, delete %>
 <div>
-  <%= button_to "#{@driver.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch %>
+  <% if @driver.trips.empty? %>
+    <%= button_to "DELETE", driver_path(@driver.id), method: :delete %>
+  <% else %>
+   <%= button_to "#{@driver.is_active ? "DEACTIVATE" : "ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch %>
+  <% end %>
 </div>
 
 <br>
@@ -44,7 +49,3 @@
     <% end %>
   </ul>
 </div>
-
-<% if @driver.is_active %>
-  <%= link_to "Edit Driver Info", edit_driver_path %>
-<% end %>

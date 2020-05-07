@@ -51,6 +51,21 @@ class DriversController < ApplicationController
     end
   end
 
+  def destroy
+    driver = Driver.find_by(id: params[:id])
+
+    if driver.nil?
+      head :not_found
+      return
+    end
+
+    driver.destroy
+
+    redirect_to drivers_path
+    return
+  end
+
+
   # TODO: consider combining active and available by passing in additional params
   def active
     driver = Driver.find_by(id: params[:id])
