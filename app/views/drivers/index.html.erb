@@ -3,11 +3,10 @@
 <h3>All active drivers:</h3>
 
 <ul>
-  <% @drivers %>
   <% @drivers.sort.each do |driver|  %>
     <% if driver.is_active%>
       <li>
-        <%= driver.name %>
+        <%= link_to driver.name , driver_path(driver.id) %>
         <%= driver.vin %>
         <%= driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
         <%= button_to "#{driver.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(driver.id), method: :patch, data: {confirm: "Are you sure you want to set #{driver.name} as inactive? They have completed #{driver.trips.length} number of trips"} %> 
