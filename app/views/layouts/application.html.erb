@@ -10,6 +10,19 @@
   </head>
 
   <body>
+    <header>
+    <% unless action_name == "home" %>
+    <nav>
+    <ul>
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "View Passengers", root_path %></li>
+<li><%= link_to "View Drivers", drivers_path  %></li>
+<li><%= link_to "Add Passenger", root_path %></li>
+<li><%= link_to "Add Driver", root_path %></li>
+    </ul>
+    </nav>
+    <% end %>
+  </header>
     <%= yield %>
   </body>
 </html>

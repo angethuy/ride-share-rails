@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RideShareRails - Home</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header>
+  <h1>Welcome to the RideShareRails admin panel!</h1>
+  <section>
+    <ul>
+      <li><%= link_to "View Passengers", root_path  %></li>
+      <li><%= link_to "Add Passenger", root_path  %></li>
+    </ul>
+  </section>
+    <section>
+    <ul>
+      <li><%= link_to "View Drivers", drivers_path  %></li>
+      <li><%= link_to "Add Driver", new_driver_path %></li>
+    </ul>
+  </section>
+  </header>
+    <%= yield %>
+  </body>
+</html>
