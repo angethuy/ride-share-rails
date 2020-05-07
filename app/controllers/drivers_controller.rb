@@ -51,16 +51,17 @@ class DriversController < ApplicationController
     end
   end
 
-  def destroy
+  # is there a way to combine
+  def active
     driver = Driver.find_by(id: params[:id])
 
     if driver.nil?
-      head :not_found
+      redirect_to driver_path
       return
     end
 
-    driver.destroy
-
+    driver.is_active = !driver.is_active
+    driver.save
     redirect_to drivers_path
   end
 
