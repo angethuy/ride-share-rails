@@ -1,0 +1,13 @@
+<%# TODO: Need to add in error handling %>
+
+<%= form_with model: @trip, class: 'create-trip' do |f| %>
+  <p>Please provide the following information to edit your trip in our database:</p>
+
+  <%= f.label :rating %>
+  <%= f.text_field :rating %>
+
+  <%= f.label :is_archive %>
+  <%= f.select :is_archive, [true,false] %>
+
+  <%= f.submit "Update Trip", class: "trip-button" %>
+<% end %>

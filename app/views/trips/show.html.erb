@@ -1,0 +1,21 @@
+<h1>Trip #<%= @trip.id %></h1>
+
+<h1>Trip Info:</h1>
+<div>
+  Trip ID: <%= @trip.id %> <br> 
+  Date: <%= @trip.date %> <br>
+  Rating: <%= @trip.rating %> <br>
+  Cost: $<%= @trip.cost %> <br>
+  Passenger: <%= "#{@trip.passenger.name} (PID: #{@trip.passenger_id})" %> <br>
+  Driver: <%= "#{@trip.driver.name} (PID: #{@trip.driver_id})" %> 
+</div>
+
+<div>
+  <%= button_to "#{@trip.is_archive ? "ARCHIVED" : "UNARCHIVED"}", trip_archive_path(@trip.id), method: :patch %>
+</div>
+
+<br>
+
+<% if !@trip.is_archive %>
+  <%= link_to "Edit Trip Info", edit_trip_path %>
+<% end %>
