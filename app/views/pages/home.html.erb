@@ -1,14 +1,15 @@
-<h1>Welcome!</h1>
-<div class="container">
+<% content_for(:title) { 'Rideshare Rails - Home' } %>
+<div class="home container text-center">
+<h3>Rideshare Rails Admin Portal</h3>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 text-center">
     <h3>Manage Passengers</h3>
       <ul>
         <%= link_to passengers_path do %><li>View all passengers</li><% end %>
         <%= link_to new_passenger_path do %><li>Add new passenger</li><% end %>
       </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 text-center">
     <h3>Manage Drivers</h3>
       <ul>
         <%= link_to drivers_path do%><li>View all drivers</li><% end %>

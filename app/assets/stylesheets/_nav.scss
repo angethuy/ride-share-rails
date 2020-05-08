@@ -1,12 +1,17 @@
 nav {
-  background-color: coral;
+  padding: 0;
+  margin: 0;
 }
 
 nav li {
-  height: 50px;
-  padding: 10px 30px;
+  padding: 0;
   margin: 0px;
   list-style: none;
-  background-color: blanchedalmond;
-  border: 1px solid green;
+}
+
+.logo {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: violet;
+  font-size: 26px;
+  padding: 4px 20px;
 }

@@ -2,31 +2,32 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.logo {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: violet;
-  font-size: 26px;
-  padding: 4px 20px;
+.home h3 {
+  margin-top: 20px;
 }
 
-.col-md-6 {
-  border: 1px solid blue;
+.home .col-md-6 {
+  margin-top: 20px;
 }
 
-ul {
+
+.home ul {
   padding:0;
   margin: 0;
 }
 
-li {
-  height: 25vh;
-  padding: 10px 0;
-  margin: 50px 30px;
-  list-style: none;
-  background-color: blanchedalmond;
-  border: 1px solid green;
+.home li:first-child {
+  margin-top: 20px;
 }
 
-.container {
+.home li {
+  padding: 80px 0;
+  margin: 60px 30px;
+  list-style: none;
+  background-color: #3E3F41;
+  border-radius: 12px;
+}
+
+.home .container {
   background-color:green;
 }
