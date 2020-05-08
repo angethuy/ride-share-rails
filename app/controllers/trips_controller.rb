@@ -23,6 +23,13 @@ class TripsController < ApplicationController
       head :not_found
       return
     elsif @trip.update(trip_params)
+      
+      # flips driver back to available after trip has been completed
+      if !@trip.rating.nil?
+        @driver = Driver.find_by(id: @trip.driver_id)
+        @driver.update({available: true})
+      end
+
       redirect_to trip_path(@trip.id)
       return
     else 
