@@ -94,23 +94,16 @@ class PassengersController < ApplicationController
     end
 
     # find next available driver
-    last_trip_date, next_driver = Trip.last.date, nil
-      Driver.all.each do |x|
-      if x.trips.empty?
-        next_driver = x.id
-        break
-      end
+    @drivers = Driver.where(:available => true).joins(:trips).order('date DESC').uniq + Driver.where(:available => true).includes(:trips).where(trips: {driver_id: nil}).reverse
 
-      current_last_date = x.trips.last.date
-      if x.available && current_last_date < last_trip_date
-        last_trip_date = current_last_date
-        next_driver = x.id
-      end
+    if @drivers.empty?
+      redirect_to passenger_path(@passenger.id)
+      return
     end
 
     trip_info = {
       passenger_id: params[:id],
-      driver_id: next_driver,
+      driver_id: @drivers.last.id,
       date: Date.today,
       cost: rand(1..100)
     }
@@ -118,7 +111,7 @@ class PassengersController < ApplicationController
     @trip = Trip.new(trip_info) 
     @trip.save
 
-    @driver = Driver.find_by(id: next_driver)
+    @driver = Driver.find_by(id: @drivers.last.id)
     @driver.available = false
     @driver.save
 
