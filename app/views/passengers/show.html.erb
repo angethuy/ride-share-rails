@@ -10,12 +10,16 @@
 
 <div>
   <% if @passenger.trips.empty? %>
-    <%= button_to "DELETE", passenger_path(@passenger.id), method: :delete %>
+    <%= button_to "DELETE", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the datebase."} %>
   <% else %>
-    <%= button_to "#{@passenger.is_active ? "ACTIVE" : "INACTIVE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch %>
+    <%= button_to "#{@passenger.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the passenger?"} %>
   <% end %>
 
-  <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch %>
+  <% new_trip_approved = "Are you sure you want to request a new trip?" %>
+  <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for the Trip ##{@passenger.trips.last.id} to be completed before requesting a new one. Trips can be marked completed from the individual trip page" %>
+
+  
+  <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? new_trip_approved : new_trip_disapproved} %>
 </div>
 
 <br>

@@ -79,6 +79,13 @@ class PassengersController < ApplicationController
   end
 
   def newtrip
+    @passenger = Passenger.find_by(id: params[:id])
+
+    if @passenger.trips.last.rating.nil?
+      redirect_to passenger_path(@passenger.id)
+      return
+    end
+
     # find next available driver
     last_trip_date = Driver.all[0].trips.last.date
     next_driver = Driver.all[0].id

@@ -25,7 +25,7 @@
   <% if @driver.trips.empty? %>
     <%= button_to "DELETE", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
   <% else %>
-   <%= button_to "#{@driver.is_active ? "DEACTIVATE" : "ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{total_trips} and earned $#{total_earnings}."} %>
+   <%= button_to "#{@driver.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{total_trips} and earned $#{total_earnings}."} %>
   <% end %>
 </div>
 
