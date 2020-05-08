@@ -2,11 +2,12 @@
 
 <%# Calculate total earnings/ratings %>
 
-<% total_earnings, total_ratings = 0, 0 %>
+<% total_earnings, total_ratings, total_trips = 0, 0, 0 %>
 <% @driver.trips.each do |trip|  %>
-  <% if !trip.is_archive %>
+  <% if !trip.is_archive && trip.rating %>
     <% total_earnings += [(trip.cost - 1.65) * 0.8, 0].max %>
     <% total_ratings += (trip.rating || 0) %>
+    <% total_trips += 1 %>
   <% end %>
 <% end %>
 
@@ -16,15 +17,15 @@
   VIN: <%= @driver.vin %> <br>
   Status: <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
   Total Earnings: $<%= total_earnings %> <br>
-  Average Rating: <%= (total_ratings.to_f / @driver.trips.length).round(2)  %>
+  Average Rating: <%= total_trips == 0 ? 0 : (total_ratings.to_f / total_trips).round(2) %>
 </div>
 
 <%# Deactivate driver if they have driven before, otherwise, delete %>
 <div>
   <% if @driver.trips.empty? %>
-    <%= button_to "DELETE", driver_path(@driver.id), method: :delete %>
+    <%= button_to "DELETE", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
   <% else %>
-   <%= button_to "#{@driver.is_active ? "DEACTIVATE" : "ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch %>
+   <%= button_to "#{@driver.is_active ? "DEACTIVATE" : "ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{total_trips} and earned $#{total_earnings}."} %>
   <% end %>
 </div>
 
@@ -39,7 +40,7 @@
     <% @driver.trips.each do |trip|  %>
       <% if !trip.is_archive %>
         <li>
-          Trip ID: <%= link_to trip.id, trip_path(trip.id) %> <br> 
+          Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
           Date: <%= trip.date %> <br>
           Rating: <%= trip.rating %> <br>
           Cost: $<%= trip.cost %> <br>
