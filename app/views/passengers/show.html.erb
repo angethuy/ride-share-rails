@@ -15,8 +15,11 @@
     <%= button_to "#{@passenger.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? "Are you sure you want to change the active status of the passenger?": "Trip in-progress, cannot delete passenger until trip is complete." } %>
   <% end %>
 
+  <%# Check to see if there are any drivers available %>
+  <% drivers_available = Driver.all.map {|driver| driver.available }.any? %>
+
   <% new_trip_approved = "Are you sure you want to request a new trip?" %>
-  <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for an in-progress trip to be completed before requesting a new one. Trips can be marked completed from the individual trip page" %>
+  <% new_trip_disapproved = drivers_available ? "There is a trip currently in-progress. Please wait for an in-progress trip to be completed before requesting a new one. Trips can be marked completed from the individual trip page" : "There are currently no drivers available. Please wait for the next available driver before requesting a new trip." %>
 
   <% if @passenger.is_active %>
     <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? new_trip_approved : new_trip_disapproved} %>

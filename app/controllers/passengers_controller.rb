@@ -94,9 +94,8 @@ class PassengersController < ApplicationController
     end
 
     # find next available driver
-    last_trip_date = Driver.all[0].trips.last.date
-    next_driver = Driver.all[0].id
-    Driver.all.each do |x|
+    last_trip_date, next_driver = Trip.last.date, nil
+      Driver.all.each do |x|
       if x.trips.empty?
         next_driver = x.id
         break
