@@ -16,12 +16,10 @@
 
 <tbody>
 <% @drivers.sort.each do |driver|  %>
-  <%= link_to driver_path(driver.id) do %>
-  <tr>
+  <tr class="clickable-tr" data-path="<%= driver_path(driver)%>" >
     <td><%= driver.id %></td>
     <td><%= driver.name %></td>
     <td><%= driver.available %></td>
-    <% end %>
     <td><%= button_to "Edit Task", edit_driver_path(driver.id), method: :get %> </td>
   </tr>
 <% end %>
