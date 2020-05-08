@@ -17,8 +17,9 @@ class PassengersController < ApplicationController
 
   def create
     @passenger = Passenger.new(passenger_params) 
+    @passenger.is_active = true
 
-    if @passenger.save #
+    if @passenger.save 
       redirect_to passengers_path
       return
     else 
@@ -94,6 +95,9 @@ class PassengersController < ApplicationController
     end
 
     # find next available driver
+    # Logic based on:
+    # https://stackoverflow.com/questions/33124910/sort-data-in-ruby-on-rails
+    # https://stackoverflow.com/questions/17172817/sort-based-on-last-has-many-record-in-rails
     @drivers = Driver.where(:available => true).joins(:trips).order('date DESC').uniq + Driver.where(:available => true).includes(:trips).where(trips: {driver_id: nil}).reverse
 
     if @drivers.empty?
@@ -108,6 +112,7 @@ class PassengersController < ApplicationController
       cost: rand(1..100)
     }
 
+    # TODO - change this to update, rather than save
     @trip = Trip.new(trip_info) 
     @trip.save
 
@@ -128,7 +133,7 @@ class PassengersController < ApplicationController
   private
 
   def passenger_params
-    return params.require(:passenger).permit(:name, :phone_num, :is_active)
+    return params.require(:passenger).permit(:name, :phone_num)
   end
 
   # TODO - implement strong params

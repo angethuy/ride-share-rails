@@ -17,6 +17,7 @@ class DriversController < ApplicationController
 
   def create
     @driver = Driver.new(driver_params) 
+    @driver.available = true
 
     if @driver.save #
       redirect_to drivers_path
@@ -67,6 +68,8 @@ class DriversController < ApplicationController
 
 
   # TODO: consider combining active and available by passing in additional params
+  # TODO: switch to update instead of save?
+  
   def active
     driver = Driver.find_by(id: params[:id])
 
@@ -99,7 +102,6 @@ class DriversController < ApplicationController
   private
 
   def driver_params
-    return params.require(:driver).permit(:name, :vin, :available)
+    return params.require(:driver).permit(:name, :vin)
   end
-
 end

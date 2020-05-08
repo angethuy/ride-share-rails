@@ -1,4 +1,12 @@
-<%# TODO: Need to add in error handling %>
+<% if @driver.errors.any? %>
+  <ul class="errors">
+    <% @driver.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
 <%= form_with model: @driver, class: 'create-driver' do |f| %>
   <p>Please provide the following information to edit your driver in our database:</p>
@@ -8,9 +16,6 @@
 
   <%= f.label :vin %>
   <%= f.text_field :vin %>
-
-  <%= f.label :available %>
-  <%= f.select :available, [true,false] %>
 
   <%= f.submit "#{action_name} Driver", class: "driver-button" %>
 <% end %>
