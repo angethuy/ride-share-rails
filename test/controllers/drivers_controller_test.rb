@@ -17,13 +17,6 @@ describe DriversController do
     end
   end
 
-  before do
-    Driver.create(name: "Princess Lusheeta", vin: "123-456-7890")
-    Driver.create(name: "Pirate Pazu", vin: "098-765-4321")
-    Driver.create(name: "Coal Miner Pazu", vin: "102-394-5876")
-    Driver.create(name: "Hero Pazu", vin: "123-456-4523")
-  end
-
   describe "show" do
     before do
       @driver = Driver.first
