@@ -1,9 +1,9 @@
 <nav class="navbar navbar-static-top">
-  <ul>
-    <li><%= link_to "Home", root_path %></li>
-    <li><%= link_to "View Passengers", passengers_path %></li>
-    <li><%= link_to "View Drivers", drivers_path  %></li>
-    <li><%= link_to "Add Passenger", new_passenger_path %></li>
-    <li><%= link_to "Add Driver", new_driver_path %></li>
+  <ul class="container">
+    <%= link_to passengers_path do%><li>View Passengers</li><%end%>
+    <%= link_to new_passenger_path do%><li>Add Passenger</li><%end%>
+    <%= link_to root_path do%><li class="logo">Rideshare</li><%end%>
+    <%= link_to drivers_path do%><li>View Drivers</li><%end%>
+    <%= link_to new_driver_path do%><li>Add Driver</li><%end%>
   </ul>
 </nav>

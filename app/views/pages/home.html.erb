@@ -1,16 +1,22 @@
-  <h1>Welcome!</h1>
-  <section>
-    <ul>
-      <li><%= link_to "View Passengers", passengers_path  %></li>
-      <li><%= link_to "Add Passenger", new_passenger_path  %></li>
-    </ul>
-  </section>
-    <section>
-    <ul>
-      <li><%= link_to "View Drivers", drivers_path  %></li>
-      <li><%= link_to "Add Driver", new_driver_path %></li>
-    </ul>
-  </section>
+<h1>Welcome!</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+    <h3>Manage Passengers</h3>
+      <ul>
+        <%= link_to passengers_path do %><li>View all passengers</li><% end %>
+        <%= link_to new_passenger_path do %><li>Add new passenger</li><% end %>
+      </ul>
+    </div>
+    <div class="col-md-6">
+    <h3>Manage Drivers</h3>
+      <ul>
+        <%= link_to drivers_path do%><li>View all drivers</li><% end %>
+        <%= link_to new_driver_path do%><li>Add new driver</li><% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 
 
 <%# render template: "layouts/application" %>
