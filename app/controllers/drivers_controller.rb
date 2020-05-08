@@ -75,7 +75,10 @@ class DriversController < ApplicationController
       return
     end
 
+    # prevents drivers from being available while deactivated
+    driver.available = !driver.is_active
     driver.is_active = !driver.is_active
+
     driver.save
     redirect_to params[:source_call] == "show" ? driver_path(driver.id): drivers_path
   end
