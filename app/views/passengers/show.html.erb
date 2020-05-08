@@ -16,7 +16,7 @@
   <% end %>
 
   <% new_trip_approved = "Are you sure you want to request a new trip?" %>
-  <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for the Trip ##{@passenger.trips.last.id} to be completed before requesting a new one. Trips can be marked completed from the individual trip page" %>
+  <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for an in-progress trip to be completed before requesting a new one. Trips can be marked completed from the individual trip page" %>
 
   
   <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? new_trip_approved : new_trip_disapproved} %>

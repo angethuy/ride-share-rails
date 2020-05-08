@@ -21,6 +21,7 @@
 
 <div>
   <%= button_to "Click to #{@trip.is_archive ? "UNARCHIVE" : "ARCHIVE"}", trip_archive_path(@trip.id), method: :patch, data: {confirm: "Are you sure you want to #{@trip.is_archive ? "unarchive" : "archive"} Trip ##{@trip.id}? Ratings and earnings will #{@trip.is_archive ? nil : "not"} be calculated into totals and averages."} %>
+  <%= button_to "DELETE", trip_path(@trip.id), method: :delete, data: {confirm: "Are you sure you want to delete this trip?"} %>
 </div>
 
 <br>
