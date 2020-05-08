@@ -6,7 +6,7 @@ class TripsController < ApplicationController
       return
     end 
   end
-
+  
   def edit
     @trip = Trip.find_by(id: params[:id])
 

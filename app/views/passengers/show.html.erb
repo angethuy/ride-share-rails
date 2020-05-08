@@ -15,7 +15,7 @@
     <%= button_to "#{@passenger.is_active ? "ACTIVE" : "INACTIVE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch %>
   <% end %>
 
-  <%= button_to "Request New Trip", passenger_newtrip_path(@passenger.id), method: :patch %>
+  <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch %>
 </div>
 
 <br>

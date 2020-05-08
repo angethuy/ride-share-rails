@@ -6,7 +6,7 @@
 <% @driver.trips.each do |trip|  %>
   <% if !trip.is_archive %>
     <% total_earnings += [(trip.cost - 1.65) * 0.8, 0].max %>
-    <% total_ratings += trip.rating %>
+    <% total_ratings += (trip.rating || 0) %>
   <% end %>
 <% end %>
 
