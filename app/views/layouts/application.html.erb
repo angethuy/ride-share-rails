@@ -1,29 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RideShareRails - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= content_for?(:title) ? yield(:title) : "Rideshare Rails!!!" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-    <% unless action_name == "home" %>
-    <nav>
-      <ul>
-        <li><%= link_to "Home", root_path %></li>
-        <li><%= link_to "View Passengers", passengers_path %></li>
-        <li><%= link_to "View Drivers", drivers_path  %></li>
-        <li><%= link_to "Add Passenger", new_passenger_path %></li>
-        <li><%= link_to "Add Driver", new_driver_path %></li>
-      </ul>
-    </nav>
-    <% end %>
-  </header>
-    <%= yield %>
-    
+      <h2>Rideshare Rails Admin Panel</h2>
+    </header>
+   <main role="main">
+    <%= render "shared/nav" unless action_name == "home" %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
+    </main>
   </body>
 </html>
