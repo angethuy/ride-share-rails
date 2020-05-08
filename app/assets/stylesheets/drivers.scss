@@ -1,3 +1,15 @@
 // Place all the styles related to the Drivers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.driver .list-view ul {
+  padding: 0;
+  margin: 0;
+}
+.driver .list-view li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid pink;
+}

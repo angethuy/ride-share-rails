@@ -2,21 +2,36 @@
 
 <h3>All active drivers:</h3>
 
-<ul>
-  <% @drivers.sort.each do |driver|  %>
-    <% if driver.is_active%>
-      <li>
-        <%= link_to driver.name , driver_path(driver.id) %>
-        <%= driver.vin %>
-        <%= driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
-        
-        <div>
-          <%= button_to "#{driver.is_active ? "ACTIVE" : "INACTIVE"}", driver_active_path(driver.id), method: :patch, data: {confirm: "Are you sure you want to set #{driver.name} as inactive? They have completed #{driver.trips.length} number of trips"} %> 
-          <%= button_to "#{driver.available ? "AVAILABLE" : "UNAVAILABLE"}", driver_available_path(driver.id), method: :patch %> 
-          <%= button_to "Edit Task", edit_driver_path(driver.id), method: :get %> 
-        </div>
-      </li>
+<div class="driver container-lg">
+
+<table class="table">
+<thead>
+<tr>
+<th>Driver ID</th>
+<th>Name</th>
+<th>Availability</th>
+<th>Edit</th>
+</tr>
+<thead>
+
+<tbody>
+<% @drivers.sort.each do |driver|  %>
+  <%= link_to driver_path(driver.id) do %>
+  <tr>
+    <td><%= driver.id %></td>
+    <td><%= driver.name %></td>
+    <td><%= driver.available %></td>
     <% end %>
-  <% end %>
-</ul>
+    <td><%= button_to "Edit Task", edit_driver_path(driver.id), method: :get %> </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+</div>
+
 <%= link_to "Add Driver", new_driver_path %>
+
+
+
+
