@@ -81,7 +81,7 @@ class PassengersController < ApplicationController
   def newtrip
     @passenger = Passenger.find_by(id: params[:id])
 
-    if @passenger.trips.last.rating.nil?
+    if !@passenger.trips.empty? && @passenger.trips.last.rating.nil?
       redirect_to passenger_path(@passenger.id)
       return
     end

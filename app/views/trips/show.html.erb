@@ -26,6 +26,6 @@
 
 <br>
 
-<% if !@trip.is_archive %>
+<% if @trip.rating.nil? %>
   <%= link_to "Edit Trip Info", edit_trip_path %>
 <% end %>
