@@ -43,7 +43,7 @@ class PassengersController < ApplicationController
       head :not_found
       return
     elsif @passenger.update(passenger_params)
-      redirect_to passengers_path 
+      redirect_to passenger_path(@passenger.id)
       return
     else 
       render :edit, status: :bad_request 
@@ -66,6 +66,13 @@ class PassengersController < ApplicationController
   end
 
   def active
+    @passenger = Passenger.find_by(id: params[:id])
+
+    if !@passenger.trips.empty? && @passenger.trips.last.rating.nil?
+      redirect_to passenger_path(@passenger.id)
+      return
+    end
+
     passenger = Passenger.find_by(id: params[:id])
 
     if passenger.nil?
