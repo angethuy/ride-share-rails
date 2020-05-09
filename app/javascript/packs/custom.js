@@ -2,6 +2,7 @@
 
 $(document).ready(function(){
   $(".clickable-tr").on('click', function(e){
+    console.log("custom js loaded");
     console.log("clicked a row!");
     url = $(this).attr('data-path');
     window.location = url;
