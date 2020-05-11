@@ -37,19 +37,6 @@ describe TripsController do
   end
 
   describe "edit" do
-    # Passenger.create(name: "Satsuki Kusakabe", phone_num: "089-381-5839")
-    # Driver.create(name: "Catbus", vin: "death-ferry")
-
-    # edit_trip_hash: = {
-    #   passenger_id: Passenger.all[1].id,
-    #   driver_id: Driver.all[1].id, 
-    #   date: Date.today,
-    #   cost: 200
-    # }
-
-    # trip = Trip.new(trip_hash)
-    # trip.save
-
     it "responds with success when getting the edit page for an existing, valid trip" do
       id = Trip.first.id
       get "/trips/#{id}/edit"
