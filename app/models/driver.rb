@@ -11,6 +11,10 @@ class Driver < ApplicationRecord
     return trips.map { |trip| trip.rating.nil? ? 0 : (trip.cost - 1.65) * 0.8}.sum 
   end
 
+  def has_inprogress_trip? 
+    return !(trips.empty?) && trips.last.rating.nil?
+  end
+
   private 
 
   def calculate_rating

@@ -1,0 +1,25 @@
+<h3>trips</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Trip ID</th>
+      <th>Date</th>
+      <th>Rating</th>
+      <th>Cost</th>
+      <th><%= alt_info %></th>
+    </tr>
+  <thead>
+
+  <tbody>
+    <% member.trips.each do |trip|  %>
+      <tr class="clickable-tr" data-path="<%= trip_path(trip.id)%>">
+        <td><%= trip.id %></td>
+        <td><%= trip.date %></td>
+        <td><%= trip.rating %></td>
+        <td><%= trip.cost %></td>
+        <td><%= alt_info == "Passenger" ? trip.passenger.name : trip.driver.name %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

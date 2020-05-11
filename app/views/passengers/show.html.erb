@@ -1,19 +1,25 @@
-<h1><%= @passenger.name %> (DID: <%= @passenger.id %>)</h1>
+<div class="profile">
+  <h1><%= @passenger.name %> (DID: <%= @passenger.id %>)</h1>
 
-<h1>Passenger Info:</h1>
-<div>
-  Name: <%= @passenger.name %> <br>
-  Phone Number: <%= @passenger.phone_num %> <br>
-  Status: <%= @passenger.is_active ? "ACTIVE" : "DEACTIVATED" %> <br>
-  Total Amount Spent: $<%= @passenger.total_spent %>
-</div>
+  <div class="container">
+    <div class="row">
 
-<div>
-  <% if @passenger.trips.empty? %>
-    <%= button_to "DELETE", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the datebase."} %>
-  <% else %>
-    <%= button_to "#{@passenger.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? "Are you sure you want to change the active status of the passenger?": "Trip in-progress, cannot delete passenger until trip is complete." } %>
-  <% end %>
+      <div class="col">
+
+        <h3>details</h3>
+          <ul>
+            <li><span>Name:</span> <%= @passenger.name %></li>
+            <li><span>Phone number:</span> <%= @passenger.phone_num %> </li>
+            <li><span>Status:</span> <%= @passenger.is_active ? "ACTIVE" : "DEACTIVATED" %>
+            <li><span>Total amount spent:</span> $<%= @passenger.total_spent %> </li>
+          </ul>
+          
+          <div>
+            <% if @passenger.trips.empty? %>
+              <%= button_to "DELETE", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the datebase."} %>
+            <% else %>
+              <%= button_to "#{@passenger.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? "Are you sure you want to change the active status of the passenger?": "Trip in-progress, cannot delete passenger until trip is complete." } %>
+            <% end %>
 
   <%# Check to see if there are any drivers available %>
   <% drivers_available = !Driver.where(:available => true).empty? %>
@@ -21,7 +27,7 @@
   <% new_trip_approved = "Are you sure you want to request a new trip?" %>
 
   <% new_trip_disapproved = '' %>
-  <% if !@passenger.trips.empty? && @passenger.trips.last.rating.nil? %>
+  <% if @passenger.has_inprogress_trip? %>
     <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for an in-progress trip to be completed before requesting a new one. Trips can be marked completed from the individual trip page." %>
   <% else %>
     <% new_trip_disapproved = "There are currently no drivers available. Please wait for the next available driver before requesting a new trip." %>
@@ -37,17 +43,13 @@
 <% if @passenger.is_active %>
   <%= link_to "Edit Passenger Info", edit_passenger_path %>
 <% end %>
-
-<div>
-  <ul>
-    <% @passenger.trips.each do |trip|  %>
-      <li>
-        Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
-        Date: <%= trip.date %> <br>
-        Rating: <%= trip.rating %> <br>
-        Cost: $<%= trip.cost %> <br>
-        Driver: <%= link_to "#{trip.driver.name} (PID: #{trip.driver_id})", driver_path(trip.driver_id) %> <br>
-      </li>
-    <% end %>
-  </ul>
 </div>
+
+      <div class="col-6">
+           <%= render partial: "shared/trips_details", locals: { member: @passenger, alt_info: "Driver" } %>
+      </div>
+    </div>  
+  </div>
+</div>
+
+

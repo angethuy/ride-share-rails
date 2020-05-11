@@ -1,41 +1,38 @@
-<h1><%= @driver.name %> (DID: <%= @driver.id %>)</h1>
+<div class="profile">
+  <h1><%= @driver.name %> (DID: <%= @driver.id %>)</h1>
 
-<%# Calculate total earnings/ratings %>
+  <div class="container">
+    <div class="row">
 
-<h1>Driver Info:</h1>
-<div>
-  Name: <%= @driver.name %> <br>
-  VIN: <%= @driver.vin %> <br>
-  Status: <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
-  Total Earnings: $<%= @driver.earnings %> <br>
-  Average Rating: <%= @driver.average_rating %>
+      <div class="col">
+
+        <h3>details</h3>
+          <ul>
+            <li><span>Name:</span> <%= @driver.name %></li>
+            <li><span>VIN:</span> <%= @driver.vin %> </li>
+            <li><span>Status:</span> <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %> </li>
+            <li><span>Total Earnings:</span> $<%= @driver.earnings %> </li>
+            <li><span>Average Rating:</span> <%= @driver.average_rating %> </li>
+          </ul>
+
+        <% if @driver.is_active %>
+          <%= link_to "Edit Driver Info", edit_driver_path %>
+        <% end %>
+
+        <div>
+          <% if @driver.trips.empty? %>
+            <%= button_to "DELETE", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
+          <% else %>
+            <%= button_to "#{@driver.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{@driver.trips.length} trips and earned $#{@driver.earnings}."} %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-6">
+           <%= render partial: "shared/trips_details", locals: { member: @driver, alt_info: "Passenger" } %>
+      </div>
+    </div>  
+  </div>
 </div>
 
-<%# Deactivate driver if they have driven before, otherwise, delete %>
-<div>
-  <% if @driver.trips.empty? %>
-    <%= button_to "DELETE", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
-  <% else %>
-   <%= button_to "#{@driver.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{@driver.trips.length} trips and earned $#{@driver.earnings}."} %>
-  <% end %>
-</div>
 
-<br>
-
-<% if @driver.is_active %>
-  <%= link_to "Edit Driver Info", edit_driver_path %>
-<% end %>
-
-<div>
-  <ul>
-    <% @driver.trips.each do |trip|  %>
-      <li>
-        Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
-        Date: <%= trip.date %> <br>
-        Rating: <%= trip.rating %> <br>
-        Cost: $<%= trip.cost %> <br>
-        Passenger: <%= link_to "#{trip.passenger.name} (PID: #{trip.passenger_id})", passenger_path(trip.passenger_id) %> <br>
-      </li>
-    <% end %>
-  </ul>
-</div>
