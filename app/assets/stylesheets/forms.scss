@@ -9,8 +9,11 @@ $form-bg: #3E3F41;
   background-color: $form-bg;
 }
 
-form {
+.user-form {
   padding: 0 0 80px;
+}
+
+form {
   background-color: $form-bg;
 
   .form-group {

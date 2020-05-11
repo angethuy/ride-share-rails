@@ -1,0 +1,28 @@
+// Styling of tables.
+
+$form-bg: #3E3F41;
+
+.table {
+  background-color: #EAEDF2;
+}
+
+.clickable-tr:nth-child(odd) {
+  background-color: #DCDFE3;
+}
+
+.driver {
+  .list-view ul {
+    padding: 0;
+    margin: 0;
+  }
+  .list-view li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+}
