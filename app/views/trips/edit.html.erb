@@ -2,6 +2,16 @@
 
 <%# Only allowing the editing of rating since the rest of the data should be fixed (i.e. the driver a trip cannot be changed after the trip is finished) %>
 
+<% if @trip.errors.any? %>
+  <ul class="errors">
+    <% @trip.errors.each do |column, message| %>
+      <li>
+        <strong><%= column.capitalize %></strong> <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with model: @trip, class: 'create-trip' do |f| %>
   <p>Please provide the following information to edit your trip in our database:</p>
 
