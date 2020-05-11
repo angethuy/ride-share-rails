@@ -17,11 +17,12 @@ describe DriversController do
     end
   end
 
-  describe "show" do
-    before do
-      @driver = Driver.first
-    end
+  before do
+    Driver.create(name: "Sheeta", vin: "mountain-gril")
+    @driver = Driver.first
+  end
 
+  describe "show" do
     it "responds with success when showing an existing valid driver" do
       # Ensure that there is a driver saved
       valid_driver_id = @driver.id
