@@ -2,58 +2,5 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-$form-bg: #3E3F41;
-
-.table {
-  background-color: #EAEDF2;
-}
-
-.clickable-tr:nth-child(odd) {
-  background-color: #DCDFE3;
-}
-
-.driver {
-  .list-view ul {
-    padding: 0;
-    margin: 0;
-  }
-  .list-view li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  &.container-sm {
-    padding: 20px 30px;
-    margin-top: 50px;
-    max-width: 470px;
-    background-color: $form-bg;
-  }
-
-  h3 {
-    text-align: center;
-  }
-
-}
-
-.driver>form {
-  padding: 0 0 80px;
-  background-color: $form-bg;
-
-  .form-group {
-    padding: 0px;
-  }
-
-  label {
-    // background-color: $form-bg;
-    margin: 0;
-    padding: 0;
-  }
-
-  input {
-    // background-color: $form-bg;
-    width: 100%;
-  }
-}
 
 

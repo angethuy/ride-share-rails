@@ -1,0 +1,28 @@
+// Styling of forms.
+
+$form-bg: #3E3F41;
+
+.container-sm {
+  padding: 20px 30px;
+  margin-top: 50px;
+  max-width: 470px;
+  background-color: $form-bg;
+}
+
+form {
+  padding: 0 0 80px;
+  background-color: $form-bg;
+
+  .form-group {
+    padding: 0px;
+  }
+
+  label {
+    margin: 0;
+    padding: 0;
+  }
+
+  input {
+    width: 100%;
+  }
+}

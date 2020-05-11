@@ -8,16 +8,15 @@
   </ul>
 <% end %>
 
-<%= form_with model: @passenger, class: 'create-passenger' do |f| %>
-  <p>Please provide the following information to edit your passenger in our database:</p>
+<div class="container-sm">
+<h3><%= "#{action_name}" %> passenger</h3>
+<p>All passenger must have a name and phone number.</p>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= form_with model: @passenger, class: 'user-form' do |f| %>
+  <div class="form-group"><br><%= f.label :name %><br><%= f.text_field :name, class: "form-control-lg", placeholder: "name"%></div>
+  <div class="form-group"><%= f.label :vin %><br><%= f.text_field :phone_num, class: "form-control-lg", placeholder: "phone number" %></div>
 
-  <%= f.label :phone_num %>
-  <%= f.text_field :phone_num %>
-
-  <%= f.submit "#{action_name} Passenger", class: "passenger-button" %>
+  <%= f.submit action_name == "New" ? "Add new passenger" : "#{action_name} passenger" , class: "passenger-button" %>
 <% end %>
-
+</div>
 </div>
