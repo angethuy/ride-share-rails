@@ -2,22 +2,13 @@
 
 <%# Calculate total earnings/ratings %>
 
-<% total_earnings, total_ratings, total_trips = 0, 0, 0 %>
-<% @driver.trips.each do |trip|  %>
-  <% if trip.rating %>
-    <% total_earnings += [(trip.cost - 1.65) * 0.8, 0].max %>
-    <% total_ratings += (trip.rating || 0) %>
-    <% total_trips += 1 %>
-  <% end %>
-<% end %>
-
 <h1>Driver Info:</h1>
 <div>
   Name: <%= @driver.name %> <br>
   VIN: <%= @driver.vin %> <br>
   Status: <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %> <br>
-  Total Earnings: $<%= total_earnings %> <br>
-  Average Rating: <%= total_trips == 0 ? 0 : (total_ratings.to_f / total_trips).round(2) %>
+  Total Earnings: $<%= @driver.earnings %> <br>
+  Average Rating: <%= @driver.average_rating %>
 </div>
 
 <%# Deactivate driver if they have driven before, otherwise, delete %>
@@ -25,7 +16,7 @@
   <% if @driver.trips.empty? %>
     <%= button_to "DELETE", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
   <% else %>
-   <%= button_to "#{@driver.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{total_trips} and earned $#{total_earnings}."} %>
+   <%= button_to "#{@driver.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{@driver.trips.length} trips and earned $#{@driver.earnings}."} %>
   <% end %>
 </div>
 

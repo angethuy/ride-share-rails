@@ -5,7 +5,7 @@
   Name: <%= @passenger.name %> <br>
   Phone Number: <%= @passenger.phone_num %> <br>
   Status: <%= @passenger.is_active ? "ACTIVE" : "DEACTIVATED" %> <br>
-  Total Amount Spent: $<%= @passenger.trips.map{|trip| trip.rating.nil? ? 0 : trip.cost}.sum %>
+  Total Amount Spent: $<%= @passenger.total_spent %>
 </div>
 
 <div>
