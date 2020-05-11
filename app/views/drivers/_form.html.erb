@@ -8,13 +8,13 @@
   </ul>
 <% end %>
 
-<h3>Add a new driver</h3>
+<h3><%= "#{action_name}" %> driver</h3>
 <p>All drivers must have a name and VIN number.</p>
 
 <%= form_with model: @driver, class: 'create-driver' do |f| %>
   <div class="form-group"><br><%= f.label :name %><br><%= f.text_field :name, class: "form-control-lg", placeholder: "driver name"%></div>
   <div class="form-group"><%= f.label :vin %><br><%= f.text_field :vin, class: "form-control-lg", placeholder: "driver VIN" %></div>
 
-  <%= f.submit "#{action_name} Driver", class: "driver-button" %>
+  <%= f.submit action_name == "New" ? "Add new driver" : "#{action_name} driver" , class: "driver-button" %>
 <% end %>
 </div>
