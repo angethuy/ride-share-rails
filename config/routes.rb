@@ -10,5 +10,4 @@ Rails.application.routes.draw do
   patch '/drivers/:id/active', to: 'drivers#active', as: 'driver_active'
   patch '/passengers/:id/active', to: 'passengers#active', as: 'passenger_active'
   patch '/passengers/:id/newtrip', to: 'passengers#newtrip', as: 'passenger_newtrip'
-  patch '/trips/:id/archive', to: 'trips#archive', as: 'trip_archive'
 end

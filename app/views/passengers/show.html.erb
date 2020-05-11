@@ -5,7 +5,7 @@
   Name: <%= @passenger.name %> <br>
   Phone Number: <%= @passenger.phone_num %> <br>
   Status: <%= @passenger.is_active ? "ACTIVE" : "DEACTIVATED" %> <br>
-  Total Amount Spent: $<%= @passenger.trips.map{|trip| trip.is_archive || trip.rating.nil? ? 0 : trip.cost}.sum %>
+  Total Amount Spent: $<%= @passenger.trips.map{|trip| trip.rating.nil? ? 0 : trip.cost}.sum %>
 </div>
 
 <div>
@@ -41,15 +41,13 @@
 <div>
   <ul>
     <% @passenger.trips.each do |trip|  %>
-      <% if !trip.is_archive %>
-        <li>
-          Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
-          Date: <%= trip.date %> <br>
-          Rating: <%= trip.rating %> <br>
-          Cost: $<%= trip.cost %> <br>
-          Driver: <%= link_to "#{trip.driver.name} (PID: #{trip.driver_id})", driver_path(trip.driver_id) %> <br>
-        </li>
-      <% end %>
+      <li>
+        Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
+        Date: <%= trip.date %> <br>
+        Rating: <%= trip.rating %> <br>
+        Cost: $<%= trip.cost %> <br>
+        Driver: <%= link_to "#{trip.driver.name} (PID: #{trip.driver_id})", driver_path(trip.driver_id) %> <br>
+      </li>
     <% end %>
   </ul>
 </div>

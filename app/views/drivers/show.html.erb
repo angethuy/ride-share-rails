@@ -4,7 +4,7 @@
 
 <% total_earnings, total_ratings, total_trips = 0, 0, 0 %>
 <% @driver.trips.each do |trip|  %>
-  <% if !trip.is_archive && trip.rating %>
+  <% if trip.rating %>
     <% total_earnings += [(trip.cost - 1.65) * 0.8, 0].max %>
     <% total_ratings += (trip.rating || 0) %>
     <% total_trips += 1 %>
@@ -38,15 +38,13 @@
 <div>
   <ul>
     <% @driver.trips.each do |trip|  %>
-      <% if !trip.is_archive %>
-        <li>
-          Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
-          Date: <%= trip.date %> <br>
-          Rating: <%= trip.rating %> <br>
-          Cost: $<%= trip.cost %> <br>
-          Passenger: <%= link_to "#{trip.passenger.name} (PID: #{trip.passenger_id})", passenger_path(trip.passenger_id) %> <br>
-        </li>
-      <% end %>
+      <li>
+        Trip ID: <%= link_to "#{trip.id} #{trip.rating.nil? ? "(In-progress)" : nil}", trip_path(trip.id) %> <br> 
+        Date: <%= trip.date %> <br>
+        Rating: <%= trip.rating %> <br>
+        Cost: $<%= trip.cost %> <br>
+        Passenger: <%= link_to "#{trip.passenger.name} (PID: #{trip.passenger_id})", passenger_path(trip.passenger_id) %> <br>
+      </li>
     <% end %>
   </ul>
 </div>

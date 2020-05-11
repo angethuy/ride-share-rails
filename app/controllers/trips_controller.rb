@@ -52,22 +52,9 @@ class TripsController < ApplicationController
     return
   end
 
-  def archive
-    trip = Trip.find_by(id: params[:id])
-
-    if trip.nil?
-      redirect_to trip_path
-      return
-    end
-
-    trip.is_archive = !trip.is_archive
-    trip.save
-    redirect_to trip_path(trip.id)
-  end
-
   private
 
   def trip_params
-    return params.require(:trip).permit(:rating, :is_archive)
+    return params.require(:trip).permit(:rating)
   end
 end
