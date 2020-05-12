@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   patch '/drivers/:id/available', to: 'drivers#available', as: 'driver_available'
   patch '/drivers/:id/active', to: 'drivers#active', as: 'driver_active'
   patch '/passengers/:id/active', to: 'passengers#active', as: 'passenger_active'
-  patch '/passengers/:id/newtrip', to: 'passengers#newtrip', as: 'passenger_newtrip'
+  patch '/passengers/:id/new_trip', to: 'passengers#new_trip', as: 'passenger_new_trip'
 end
