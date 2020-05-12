@@ -28,4 +28,20 @@ describe PassengersController do
   # describe "destroy" do
   #   # Your tests go here
   # end
+
+  # describe "active" do
+  #   # Your tests go here
+  # end
+
+  describe "new trip" do
+    it "responds with success when creating a trip with valid parameters" do
+    end
+
+    it "responds with failure for passengers who are already on trips" do
+    end
+
+    it "responds with failure when there are no available drivers" do
+    end
+    
+  end
 end
