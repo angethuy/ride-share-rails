@@ -10,11 +10,11 @@
 
 <div class="container-sm">
 <h3><%= "#{action_name}" %> passenger</h3>
-<p>All passenger must have a name and phone number.</p>
+<p>All passengers must have a name and phone number.</p>
 
 <%= form_with model: @passenger, class: 'user-form' do |f| %>
   <div class="form-group"><br><%= f.label :name %><br><%= f.text_field :name, class: "form-control-lg", placeholder: "name"%></div>
-  <div class="form-group"><%= f.label :vin %><br><%= f.text_field :phone_num, class: "form-control-lg", placeholder: "phone number" %></div>
+  <div class="form-group"><%= f.label :phone_num %><br><%= f.text_field :phone_num, class: "form-control-lg", placeholder: "phone number" %></div>
 
   <%= f.submit action_name == "New" ? "Add new passenger" : "#{action_name} passenger" , class: "passenger-button" %>
 <% end %>
