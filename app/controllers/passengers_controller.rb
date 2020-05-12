@@ -94,18 +94,12 @@ class PassengersController < ApplicationController
       return
     end
 
-    # find next available driver
-    # Logic based on:
-    # https://stackoverflow.com/questions/33124910/sort-data-in-ruby-on-rails
-    # https://stackoverflow.com/questions/17172817/sort-based-on-last-has-many-record-in-rails
-    @drivers = Driver.where(:available => true).joins(:trips).order('date DESC').uniq + Driver.where(:available => true).includes(:trips).where(trips: {driver_id: nil}).reverse
+    @driver = DriversController.get_next_available
 
-    if @drivers.empty?
+    if @driver.nil?
       redirect_to passenger_path(@passenger.id)
       flash[:danger] = "There are currently no drivers available for new trips."
       return
-    else 
-      @driver = @drivers.last
     end
 
     trip_info = {
@@ -119,7 +113,7 @@ class PassengersController < ApplicationController
     @trip = Trip.new(trip_info) 
     @trip.save
 
-    @driver = Driver.find_by(id: @driver.id)
+    # @driver = Driver.find_by(id: @driver.id)
     @driver.available = false
     @driver.save
 

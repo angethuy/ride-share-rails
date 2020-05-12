@@ -1,7 +1,12 @@
 class DriversController < ApplicationController
 
-  def self.any_available?
-    return !Driver.where(:available => true).empty?
+  def self.get_next_available
+    # find next available driver
+    # Logic based on:
+    # https://stackoverflow.com/questions/33124910/sort-data-in-ruby-on-rails
+    # https://stackoverflow.com/questions/17172817/sort-based-on-last-has-many-record-in-rails
+    all_available_drivers = Driver.where(:available => true).joins(:trips).order('date DESC').uniq + Driver.where(:available => true).includes(:trips).where(trips: {driver_id: nil}).reverse
+    return all_available_drivers.empty? ? nil : all_available_drivers.last
   end
 
   def index
@@ -104,6 +109,12 @@ class DriversController < ApplicationController
     driver.save
     redirect_to drivers_path
   end
+
+
+  def any_available?
+    return !Driver.where(:available => true).empty?
+  end
+
 
   private
 
