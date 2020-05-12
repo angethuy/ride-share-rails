@@ -1,7 +1,5 @@
-
-
 <div class="table-responsive">
-<h3>trips</h3>
+<h4>trips</h4>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -9,7 +7,7 @@
       <th>Date</th>
       <th>Rating</th>
       <th>Cost</th>
-      <th><%= alt_info %></th>
+      <th><%= member.class.name=="Passenger" ? "Driver" : "Passenger" %></th>
     </tr>
   <thead>
 
@@ -19,8 +17,8 @@
         <td><%= trip.id %></td>
         <td><%= trip.date %></td>
         <td><%= trip.rating %></td>
-        <td><%= trip.cost %></td>
-        <td><%= alt_info == "Passenger" ? trip.passenger.name : trip.driver.name %>
+        <td>$<%= trip.cost %></td>
+        <td><%= member.class.name=="Passenger" ? trip.passenger.name : trip.driver.name %>
       </tr>
     <% end %>
   </tbody>

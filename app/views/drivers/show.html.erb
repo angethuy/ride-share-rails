@@ -1,12 +1,14 @@
 <div class="profile">
-  <h1><%= @driver.name %> (DID: <%= @driver.id %>)</h1>
+  <h3>Details for driver <%= @driver.name %> 
+  <%= render partial: "shared/status", locals: { member: @driver, style: "dot" }%>
+  </h3>
 
   <div class="container">
     <div class="row">
 
       <div class="col-4" >
         <div class="info-panel">
-        <h3>details</h3>
+        <h4>Profile</h4>
           <ul>
             <li><span>Name:</span> <%= @driver.name %></li>
             <li><span>VIN:</span> <%= @driver.vin %> </li>
@@ -32,7 +34,7 @@
       </div>
 
       <div class="col-8">
-           <%= render partial: "trips/trips_details", locals: { member: @driver, alt_info: "Passenger" } %>
+           <%= render partial: "trips/trips_details", locals: { member: @driver } %>
       </div>
     </div>  
   </div>

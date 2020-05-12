@@ -27,7 +27,7 @@
             <% if @passenger.trips.empty? %>
               <%= link_to "Delete", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the database."} %>
             <% else %>
-              <%= button_to "#{@passenger.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? "Are you sure you want to change the active status of the passenger?": "Trip in-progress, cannot delete passenger until trip is complete." } %>
+              <%= link_to "#{@passenger.is_active ? "Deactivate" : "Activate"} passenger", passenger_active_path(@passenger.id), method: :patch, data: {confirm: "Are you sure you want to #{@passenger.is_active ? "deactivate" : "activate"} this passenger?"} %>
             <% end %>
 
             <% if @passenger.is_active %>
@@ -45,7 +45,7 @@
 
 
       <div class="col-8">
-           <%= render partial: "trips/trips_details", locals: { member: @passenger, alt_info: "Driver" } %>
+           <%= render partial: "trips/trips_details", locals: { member: @passenger } %>
       </div>
     </div>  
   </div>
