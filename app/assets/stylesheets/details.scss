@@ -1,5 +1,13 @@
 // Styling of details. 
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
 
 .profile {
   .row>div>div {
@@ -8,13 +16,17 @@
     margin: 0 10px;
     border-radius: 12px;
   }
-
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-    list-style: none;
-  }
 }
+
+h1 {
+  text-align: center;
+}
+
+.info {
+  margin: 0 auto;
+  padding: 60px;
+  max-width: 40vw;
+  background-color: #606165;
+  border-radius: 12px;
+}
+

@@ -12,6 +12,13 @@
   </head>
 
   <body>
+
+      <% flash.each do |name, message| %>
+        <div class="alert alert-<%= name %>" role="alert">
+          <%= message.html_safe %>
+        </div>
+      <% end %>
+
     <header class="text-center">
       
     </header>
