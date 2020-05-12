@@ -1,0 +1,21 @@
+// Styling of symbols, e.g. status, stars, etc.
+
+.btn {
+  margin: 20px 0;
+}
+
+.alert {
+  margin: 20px;
+}
+
+.dot {
+  &-danger {
+    color: red;
+  }
+  &-success {
+    color: green;
+  }
+  &-secondary {
+    color: grey;
+  }
+}

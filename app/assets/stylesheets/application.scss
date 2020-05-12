@@ -19,6 +19,13 @@
 
 body {
   background-color:#292A2C;
-  color: pink;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #E2E6E8;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+  color: #2ACFE5;
+  &:hover {
+    color: #ffaa1d;   
+  }
 }

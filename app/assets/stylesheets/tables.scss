@@ -2,11 +2,15 @@
 
 
 .table {
-  background-color: #EAEDF2;
+  background-color: #4E4F53;
+  color: #fff;
 }
 
-.clickable-tr:nth-child(odd) {
-  background-color: #DCDFE3;
+.status-false {
+  color: #A5A8B4;
+}
+
+[class$=-true] {
 }
 
 .driver {
@@ -25,3 +29,4 @@
   }
 
 }
+
