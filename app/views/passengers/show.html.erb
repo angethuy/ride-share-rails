@@ -16,8 +16,11 @@
 
         <div>
 
-          <%# Check to see if there are any drivers available %>
-            <% drivers_available = !Driver.where(:available => true).empty? %>
+        <% if @passenger.is_active && !@passenger.has_inprogress_trip? %>
+            <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: (@passenger.has_inprogress_trip? && DriversController.any_available?) ? new_trip_approved : new_trip_disapproved}, class: "btn btn-primary" %>
+        <% end %>
+
+
 
             <% new_trip_approved = "Are you sure you want to request a new trip?" %>
 
@@ -28,9 +31,7 @@
             <% new_trip_disapproved = "There are currently no drivers available. Please wait for the next available driver before requesting a new trip." %>
           <% end %>
 
-          <% if @passenger.is_active %>
-            <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: (@passenger.trips.empty? || !@passenger.trips.last.rating.nil?) && drivers_available ? new_trip_approved : new_trip_disapproved}, class: "btn btn-secondary" %>
-          <% end %>
+          
       </div>  
 
       

@@ -1,4 +1,9 @@
 class DriversController < ApplicationController
+
+  def self.any_available?
+    return !Driver.where(:available => true).empty?
+  end
+
   def index
     @drivers = Driver.all
   end
