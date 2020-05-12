@@ -5,15 +5,15 @@
     <div class="col-md-6 text-center">
     <h3>Manage Passengers</h3>
       <ul>
-        <%= link_to passengers_path do %><li>View all passengers</li><% end %>
-        <%= link_to new_passenger_path do %><li>Add new passenger</li><% end %>
+        <%= link_to passengers_path, class: "big-nav" do %><li id="view-passengers">View all passengers</li><% end %>
+        <%= link_to new_passenger_path, class: "big-nav" do %><li id="add-passengers" >Add new passenger</li><% end %>
       </ul>
     </div>
     <div class="col-md-6 text-center">
     <h3>Manage Drivers</h3>
       <ul>
-        <%= link_to drivers_path do%><li>View all drivers</li><% end %>
-        <%= link_to new_driver_path do%><li>Add new driver</li><% end %>
+        <%= link_to drivers_path, class: "big-nav" do %><li id="view-drivers">View all drivers</li><% end %>
+        <%= link_to new_driver_path,  class: "big-nav" do %><li id="add-drivers" >Add new driver</li><% end %>
       </ul>
     </div>
   </div>
