@@ -1,7 +1,5 @@
 <h1>PASSENGERS</h1>
 
-<h3>All active passengers:</h3>
-
 <div class="passenger container-lg">
 
 <table class="table">
@@ -16,9 +14,11 @@
 
 <tbody>
 <% @passengers.sort.each do |passenger|  %>
-  <tr class="clickable-tr" data-path="<%= passenger_path(passenger)%>" >
+  <tr class="clickable-tr status-<%=passenger.is_active%>" data-path="<%= passenger_path(passenger)%>" >
     <td><%= passenger.id %></td>
-    <td><%= passenger.name %></td>
+    <td><%= passenger.name %>
+<%= render partial: "shared/status", locals: { member: passenger, style: "badge" }%>
+    </td>
     <td><%= passenger.phone_num %></td>
     <td><%= button_to "Edit Passenger", edit_passenger_path(passenger.id), method: :get %> </td>
   </tr>

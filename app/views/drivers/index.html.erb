@@ -1,6 +1,5 @@
 <h1>DRIVERS</h1>
 
-<h3>All active drivers:</h3>
 
 <div class="driver container-lg">
 
@@ -16,10 +15,12 @@
 
 <tbody>
 <% @drivers.sort.each do |driver|  %>
-  <tr class="clickable-tr" data-path="<%= driver_path(driver)%>" >
+  <tr class="clickable-tr status-<%=driver.is_active%>" data-path="<%= driver_path(driver)%>" >
     <td><%= driver.id %></td>
     <td><%= driver.name %></td>
-    <td><%= driver.available %></td>
+    <td>
+    <%= render partial: "shared/status", locals: { member: driver, style: "badge" }%>
+      </td>
     <td><%= button_to "Edit Driver", edit_driver_path(driver.id), method: :get %> </td>
   </tr>
 <% end %>
