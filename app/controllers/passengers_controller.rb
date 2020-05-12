@@ -91,10 +91,11 @@ class PassengersController < ApplicationController
 
     if @passenger.has_inprogress_trip?
       redirect_to passenger_path(@passenger.id)
+      flash[:danger] = "Passenger is already on a trip."
       return
     end
 
-    @driver = DriversController.get_next_available
+    @driver = Driver.get_next_available
 
     if @driver.nil?
       redirect_to passenger_path(@passenger.id)
@@ -113,7 +114,6 @@ class PassengersController < ApplicationController
     @trip = Trip.new(trip_info) 
     @trip.save
 
-    # @driver = Driver.find_by(id: @driver.id)
     @driver.available = false
     @driver.save
 

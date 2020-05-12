@@ -15,6 +15,11 @@ class Driver < ApplicationRecord
     return !(trips.empty?) && trips.last.rating.nil?
   end
 
+  def self.get_next_available
+    all_available_drivers = Driver.where(:available => true).joins(:trips).order('date DESC').uniq + Driver.where(:available => true).includes(:trips).where(trips: {driver_id: nil}).reverse
+    return all_available_drivers.empty? ? nil : all_available_drivers.last
+  end
+
   private 
 
   def calculate_rating
