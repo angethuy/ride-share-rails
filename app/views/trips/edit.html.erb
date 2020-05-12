@@ -3,17 +3,28 @@
 <%# Only allowing the editing of rating since the rest of the data should be fixed (i.e. the driver a trip cannot be changed after the trip is finished) %>
 
 <% if @trip.errors.any? %>
+<div>
   <ul class="errors">
     <% @trip.errors.each do |column, message| %>
-      <li>
-        <strong><%= column.capitalize %></strong> <%= message %>
-      </li>
+      <div class="alert alert-danger" role="alert">
+        <%= "Submitted #{column} #{message}. Please give this trip a valid rating." %>
+      </div>
     <% end %>
   </ul>
+</div>
 <% end %>
 
-<%= form_with model: @trip, class: 'create-trip' do |f| %>
+
+
+<div class="container">
+<h1>Rating Trip #<%= @trip.id %></h1>
+
+<div class="info">
+<%= form_with model: @trip, id: "rating", class: 'create-trip' do |f| %>
 <%= f.label :rating %>
-      <%= f.select :rating, options_for_select(["choose a number",1,2,3,4,5])%>
-  <%= f.submit "Update Trip", class: "trip-button" %>
+<%= f.select :rating, options_for_select(["choose a number",1,2,3,4,5])%>
+  <%= f.submit "Update Trip", class: "btn btn-success" %>
 <% end %>
+</div>
+
+</div>
