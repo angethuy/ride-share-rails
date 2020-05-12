@@ -29,8 +29,8 @@ class TripsController < ApplicationController
         @driver = Driver.find_by(id: @trip.driver_id)
         @driver.update({available: true})
       end
-
       redirect_to trip_path(@trip.id)
+      flash[:success] = "Trip successfully rated."
       return
     else 
       render :edit, status: :bad_request 

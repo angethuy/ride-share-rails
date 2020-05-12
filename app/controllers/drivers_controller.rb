@@ -88,6 +88,13 @@ class DriversController < ApplicationController
       return
     end
 
+    if driver.has_inprogress_trip?
+      current_trip = driver.trips.last.id
+      redirect_to driver_path(driver.id)
+      flash[:danger] = "Cannot change status while #{driver.name} has a trip in progress! Please #{view_context.link_to "rate Trip ##{current_trip}", edit_trip_path(current_trip) }"
+      return
+    end
+
     # prevents drivers from being available while deactivated
     driver.available = !driver.is_active
     driver.is_active = !driver.is_active

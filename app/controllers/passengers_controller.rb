@@ -21,6 +21,7 @@ class PassengersController < ApplicationController
 
     if @passenger.save 
       redirect_to passengers_path
+      flash[:success] = "Successfully added new passenger: #{view_context.link_to @passenger.name, passenger_path(@passenger.id) }"
       return
     else 
       render :new, status: :bad_request
@@ -69,8 +70,10 @@ class PassengersController < ApplicationController
   def active
     @passenger = Passenger.find_by(id: params[:id])
 
-    if !@passenger.trips.empty? && @passenger.trips.last.rating.nil?
+    if @passenger.has_inprogress_trip?
+      current_trip = @passenger.trips.last.id
       redirect_to passenger_path(@passenger.id)
+      flash[:danger] = "Cannot change status while #{@passenger.name} has a trip in progress! Please #{view_context.link_to "rate Trip #{current_trip}", edit_trip_path(current_trip) }"
       return
     end
 
