@@ -86,7 +86,16 @@ class PassengersController < ApplicationController
 
     passenger.is_active = !passenger.is_active
     passenger.save
-    redirect_to params[:source_call] == "show" ? passenger_path(passenger.id): passengers_path
+    passenger.reload
+
+    if passenger.is_active
+      redirect_to passenger_path(passenger.id)
+      flash[:success] = "Successfully reactivated #{passenger.name}."
+    else
+      redirect_to params[:source_call] == "show" ? passenger_path(passenger.id): passengers_path
+      flash[:success] = "Successfully deactivated #{passenger.name}."
+    end
+    
   end
 
   def new_trip
