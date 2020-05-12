@@ -7,7 +7,7 @@
       <th>Date</th>
       <th>Rating</th>
       <th>Cost</th>
-      <th><%= member.class.name=="Passenger" ? "Driver" : "Passenger" %></th>
+      <th><%= member.class.name== "Passenger" ? "Driver" : "Passenger" %></th>
     </tr>
   <thead>
 
@@ -18,7 +18,7 @@
         <td><%= trip.date %></td>
         <td><%= trip.rating %></td>
         <td>$<%= trip.cost %></td>
-        <td><%= member.class.name=="Passenger" ? trip.passenger.name : trip.driver.name %>
+        <td><%= member.class.name=="Passenger" ? trip.driver.name : trip.passenger.name %>
       </tr>
     <% end %>
   </tbody>

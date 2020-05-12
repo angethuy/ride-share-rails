@@ -6,7 +6,9 @@
   <ul>
   <li>Trip ID: <%= @trip.id %> </li> 
   <li>Date: <%= @trip.date %> </li>
-  <li>Trip Status: <%= @trip.rating ? "COMPLETE" : "IN-PROGRESS" %></li>
+  <li>Trip Status: 
+  <%= render partial: "shared/status", locals: { member: @trip, style: "badge" }%>
+  </li>
   <li>Rating: 
     <% if @trip.rating %>
       <%= @trip.rating %> 
