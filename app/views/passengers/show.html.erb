@@ -4,8 +4,8 @@
   <div class="container">
     <div class="row">
 
-      <div class="col">
-
+      <div class="col-4">
+        <div class="info-panel">
         <h3>details</h3>
           <ul>
             <li><span>Name:</span> <%= @passenger.name %></li>
@@ -13,40 +13,51 @@
             <li><span>Status:</span> <%= @passenger.is_active ? "ACTIVE" : "DEACTIVATED" %>
             <li><span>Total amount spent:</span> $<%= @passenger.total_spent %> </li>
           </ul>
-          
+
+        <div>
+
+          <%# Check to see if there are any drivers available %>
+            <% drivers_available = !Driver.where(:available => true).empty? %>
+
+            <% new_trip_approved = "Are you sure you want to request a new trip?" %>
+
+            <% new_trip_disapproved = '' %>
+            <% if @passenger.has_inprogress_trip? %>
+            <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for an in-progress trip to be completed before requesting a new one. Trips can be marked completed from the individual trip page." %>
+            <% else %>
+            <% new_trip_disapproved = "There are currently no drivers available. Please wait for the next available driver before requesting a new trip." %>
+          <% end %>
+
+          <% if @passenger.is_active %>
+            <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: (@passenger.trips.empty? || !@passenger.trips.last.rating.nil?) && drivers_available ? new_trip_approved : new_trip_disapproved}, class: "btn btn-secondary" %>
+          <% end %>
+      </div>  
+
+      
+
           <div>
             <% if @passenger.trips.empty? %>
-              <%= button_to "DELETE", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the datebase."} %>
+              <%= link_to "Delete", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the database."} %>
             <% else %>
               <%= button_to "#{@passenger.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", passenger_active_path(@passenger.id, {source_call: "show"}), method: :patch, data: {confirm: @passenger.trips.empty? || !@passenger.trips.last.rating.nil? ? "Are you sure you want to change the active status of the passenger?": "Trip in-progress, cannot delete passenger until trip is complete." } %>
             <% end %>
 
-  <%# Check to see if there are any drivers available %>
-  <% drivers_available = !Driver.where(:available => true).empty? %>
+            <% if @passenger.is_active %>
+              <%= link_to "Edit Passenger Info", edit_passenger_path %>
+            <% end %>
+          </div>
 
-  <% new_trip_approved = "Are you sure you want to request a new trip?" %>
+   
+      </div>
 
-  <% new_trip_disapproved = '' %>
-  <% if @passenger.has_inprogress_trip? %>
-    <% new_trip_disapproved = "There is a trip currently in-progress. Please wait for an in-progress trip to be completed before requesting a new one. Trips can be marked completed from the individual trip page." %>
-  <% else %>
-    <% new_trip_disapproved = "There are currently no drivers available. Please wait for the next available driver before requesting a new trip." %>
-  <% end %>
 
-  <% if @passenger.is_active %>
-    <%= button_to "Request New Trip", passenger_newtrip_path, method: :patch, data: {confirm: (@passenger.trips.empty? || !@passenger.trips.last.rating.nil?) && drivers_available ? new_trip_approved : new_trip_disapproved} %>
-  <% end %>
-</div>
+        </div><!--info panel-->
+          
+          
 
-<br>
 
-<% if @passenger.is_active %>
-  <%= link_to "Edit Passenger Info", edit_passenger_path %>
-<% end %>
-</div>
-
-      <div class="col-6">
-           <%= render partial: "shared/trips_details", locals: { member: @passenger, alt_info: "Driver" } %>
+      <div class="col-8">
+           <%= render partial: "trips/trips_details", locals: { member: @passenger, alt_info: "Driver" } %>
       </div>
     </div>  
   </div>
