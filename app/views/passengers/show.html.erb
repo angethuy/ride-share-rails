@@ -1,16 +1,18 @@
 <div class="profile">
-  <h1><%= @passenger.name %> (DID: <%= @passenger.id %>)</h1>
+  <h1>Details for <%= @passenger.name %>
+  <%= render partial: "shared/status", locals: { member: @passenger, style: "dot" }%>
+  </h1>
 
   <div class="container">
     <div class="row">
 
       <div class="col-4">
         <div class="info-panel">
-        <h3>details</h3>
+        <h3>Profile</h3>
           <ul>
             <li><span>Name:</span> <%= @passenger.name %></li>
             <li><span>Phone number:</span> <%= @passenger.phone_num %> </li>
-            <li><span>Status:</span> <%= @passenger.is_active ? "ACTIVE" : "DEACTIVATED" %>
+            <li><span>Status:</span> <%= @passenger.is_active ? "Active" : "Deactivated" %>
             <li><span>Total amount spent:</span> $<%= @passenger.total_spent %> </li>
           </ul>
 
@@ -24,15 +26,21 @@
       
 
           <div>
+          <ul>
+          <li>
             <% if @passenger.trips.empty? %>
               <%= link_to "Delete", passenger_path(@passenger.id), method: :delete, data: {confirm: "This will permanently delete the passenger from the database."} %>
             <% else %>
               <%= link_to "#{@passenger.is_active ? "Deactivate" : "Activate"} passenger", passenger_active_path(@passenger.id), method: :patch, data: {confirm: "Are you sure you want to #{@passenger.is_active ? "deactivate" : "activate"} this passenger?"} %>
             <% end %>
+            </li>
 
+            <li>
             <% if @passenger.is_active %>
-              <%= link_to "Edit Passenger Info", edit_passenger_path %>
+              <%= link_to "Edit passenger Info", edit_passenger_path %>
             <% end %>
+            </li>
+            </ul>
           </div>
 
    

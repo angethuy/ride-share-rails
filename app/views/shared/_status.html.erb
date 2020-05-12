@@ -1,20 +1,32 @@
-<% if !member.is_active %>
-  <span class="<%= style %> <%= style %>-secondary">
-    <%= style == "dot" ? "&#149;".html_safe : "Deactivated"  %>
-  </span> 
-<% else %> 
-  <% if member.has_inprogress_trip? %>
-    <span class="<%= style %> <%= style %>-danger">
-      <%= style == "dot" ? "&#149;".html_safe : member.class.name == "Driver" ? "Unavailable" : "in trip"  %>
-    </span>
-  <% else %>
-    <% if member.class.name == "Driver" %>
+<% if member.class.name == "Trip" %>
+  <% if member.rating %>
     <span class="<%= style %> <%= style %>-success">
-      <%= style == "dot" ? "&#149;".html_safe : "Available"  %>
-    </span>
+      <%= style == "dot" ? "&#149;".html_safe : "Completed"  %>
+    </span> 
+  <% else %>
+    <span class="<%= style %> <%= style %>-info">
+      <%= style == "dot" ? "&#149;".html_safe : "In-progress"  %>
+    </span> 
+  <% end%>
+<% else %>
+  <% if !member.is_active %>
+    <span class="<%= style %> <%= style %>-secondary">
+      <%= style == "dot" ? "&#149;".html_safe : "Deactivated"  %>
+    </span> 
+  <% else %> 
+    <% if member.has_inprogress_trip? %>
+      <span class="<%= style %> <%= style %>-danger">
+        <%= style == "dot" ? "&#149;".html_safe : member.class.name == "Driver" ? "Unavailable" : "in trip"  %>
+      </span>
+    <% else %>
+      <% if member.class.name == "Driver" %>
+      <span class="<%= style %> <%= style %>-success">
+        <%= style == "dot" ? "&#149;".html_safe : "Available"  %>
+      </span>
+      <% end %>
     <% end %>
-  <% end %>
-<% end%>
+  <% end%>
+<%end%>
 
 
 
