@@ -23,10 +23,16 @@
   <li>Driver: <%= link_to "#{@trip.driver.name} (PID: #{@trip.driver_id}) #{@trip.driver.is_active ? nil : "(DEACTIVATED)"}", driver_path(@trip.driver_id) %>
   </ul>
 
+  <% if !@trip.rating %>
+  <div>
+  <%= button_to "Rate this trip", edit_trip_path, method: :get, class: "btn btn-primary" %>
+</div>
+<% end %>
+
     
 
   <div>
-  <%= button_to "DELETE", trip_path(@trip.id), method: :delete, data: {confirm: "Are you sure you want to delete this trip?"}, class: "btn btn-danger" %>
+  <%= button_to "Delete", trip_path(@trip.id), method: :delete, data: {confirm: "Are you sure you want to delete this trip?"}, class: "btn btn-outline-danger" %>
 </div>
 </div>
 
