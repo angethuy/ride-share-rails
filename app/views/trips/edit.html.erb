@@ -13,10 +13,7 @@
 <% end %>
 
 <%= form_with model: @trip, class: 'create-trip' do |f| %>
-  <p>Please provide the following information to edit your trip in our database:</p>
-
-  <%= f.label :rating %>
-  <%= f.text_field :rating %>
-
+<%= f.label :rating %>
+      <%= f.select :rating, options_for_select(["choose a number",1,2,3,4,5])%>
   <%= f.submit "Update Trip", class: "trip-button" %>
 <% end %>
