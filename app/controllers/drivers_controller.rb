@@ -25,6 +25,7 @@ class DriversController < ApplicationController
     @driver.available = true
 
     if @driver.save #
+      flash[:success] = "Successfully added new driver: #{view_context.link_to @driver.name, driver_path(@driver.id) }"
       redirect_to drivers_path
       return
     else 

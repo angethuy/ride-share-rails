@@ -86,10 +86,10 @@ class PassengersController < ApplicationController
     redirect_to params[:source_call] == "show" ? passenger_path(passenger.id): passengers_path
   end
 
-  def newtrip
+  def new_trip
     @passenger = Passenger.find_by(id: params[:id])
 
-    if !@passenger.trips.empty? && @passenger.trips.last.rating.nil?
+    if @passenger.has_inprogress_trip?
       redirect_to passenger_path(@passenger.id)
       return
     end
@@ -102,12 +102,15 @@ class PassengersController < ApplicationController
 
     if @drivers.empty?
       redirect_to passenger_path(@passenger.id)
+      flash[:danger] = "There are currently no drivers available for new trips."
       return
+    else 
+      @driver = @drivers.last
     end
 
     trip_info = {
       passenger_id: params[:id],
-      driver_id: @drivers.last.id,
+      driver_id: @driver.id,
       date: Date.today,
       cost: rand(1..100)
     }
@@ -116,12 +119,13 @@ class PassengersController < ApplicationController
     @trip = Trip.new(trip_info) 
     @trip.save
 
-    @driver = Driver.find_by(id: @drivers.last.id)
+    @driver = Driver.find_by(id: @driver.id)
     @driver.available = false
     @driver.save
 
     if @trip.save && @driver.save
       redirect_to passenger_path(params[:id])
+      flash[:success] = "Successfully created #{view_context.link_to "new trip ##{@trip.id}", trip_path(@trip.id) }"
       return
     else 
       render :new, status: :bad_request
@@ -140,4 +144,5 @@ class PassengersController < ApplicationController
   def trip_params
     return params.require(:trip).permit(:date, :cost, :driver_id, :passenger_id)
   end
+
 end

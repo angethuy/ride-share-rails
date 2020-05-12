@@ -47,7 +47,7 @@ class TripsController < ApplicationController
     end
 
     trip.destroy
-
+    flash[:success] = "Successfully deleted trip ##{trip.id}"
     redirect_to root_path
     return
   end
