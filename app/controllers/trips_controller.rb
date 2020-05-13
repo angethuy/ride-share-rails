@@ -54,6 +54,7 @@ class TripsController < ApplicationController
 
     trip.destroy
     flash[:success] = "Successfully deleted trip ##{trip.id}"
+    # https://stackoverflow.com/questions/2139996/how-to-redirect-to-previous-page-in-ruby-on-rails
     redirect_to session.delete(:return_to)
     return
   end
