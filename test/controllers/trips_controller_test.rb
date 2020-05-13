@@ -128,6 +128,7 @@ describe TripsController do
 
     it "destroys the trip instance in db when trip exists, then redirects" do
       id = Trip.first.id
+      get trip_path(id), params: { id: id } , headers: { "HTTP_REFERER" => driver_path(Trip.first.driver_id)}
       expect {
         delete trip_path(id), params: destroy_trip_hash
       }.must_differ "Trip.count", -1
