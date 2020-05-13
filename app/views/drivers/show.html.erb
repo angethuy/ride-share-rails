@@ -17,17 +17,19 @@
             <li><span>Average Rating:</span> <%= @driver.average_rating %> </li>
           </ul>
 
+          <ul>
+
         <% if @driver.is_active %>
-          <%= link_to "Edit Driver Info", edit_driver_path %>
+          <li><%= link_to "Edit driver info", edit_driver_path %></li>
         <% end %>
         
-        <div>
+       
           <% if @driver.trips.empty? %>
-            <%= button_to "DELETE", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
+            <%= link_to "Delete driver", driver_path(@driver.id), method: :delete, data: {confirm: "This will permanently delete the driver from the datebase."} %>
           <% else %>
-            <%= button_to "#{@driver.is_active ? "CLICK TO DEACTIVATE" : "CLICK TO ACTIVATE"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{@driver.trips.length} trips and earned $#{@driver.earnings}."} %>
+            <%= link_to "#{@driver.is_active ? "Deactivate driver" : "Activate driver"}", driver_active_path(@driver.id, {source_call: "show"}), method: :patch, data: {confirm: "Are you sure you want to change the active status of the driver? #{@driver.name} has completed #{@driver.trips.length} trips and earned $#{@driver.earnings}."} %>
           <% end %>
-        </div>
+          </ul>
         </div>
 
         
