@@ -47,6 +47,11 @@ class TripsController < ApplicationController
       return
     end
 
+    if trip.rating.nil?
+      driver = Driver.find_by(id: trip.driver_id)
+      driver.update({available: true})
+    end
+
     trip.destroy
     flash[:success] = "Successfully deleted trip ##{trip.id}"
     redirect_to session.delete(:return_to)

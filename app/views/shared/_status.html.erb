@@ -14,19 +14,23 @@
       <%= style == "dot" ? "&#149;".html_safe : "Deactivated"  %>
     </span> 
   <% else %> 
-    <% if member.has_inprogress_trip? %>
-      <span class="<%= style %> <%= style %>-danger">
-        <%= style == "dot" ? "&#149;".html_safe : member.class.name == "Driver" ? "Unavailable" : "in trip"  %>
-      </span>
-    <% else %>
-      <% if member.class.name == "Driver" %>
-      <span class="<%= style %> <%= style %>-success">
-        <%= style == "dot" ? "&#149;".html_safe : "Available"  %>
-      </span>
+    <% if member.class.name == "Driver" %>
+      <% if member.available %>
+        <span class="<%= style %> <%= style %>-success">
+          <%= style == "dot" ? "&#149;".html_safe : "Available"  %>
+        </span>
+      <% else %>
+        <span class="<%= style %> <%= style %>-danger">
+          <%= style == "dot" ? "&#149;".html_safe : "Unavailable" %>
+        </span>
       <% end %>
+    <% elsif member.has_inprogress_trip? %>
+      <span class="<%= style %> <%= style %>-danger">
+        <%= style == "dot" ? "&#149;".html_safe : "in trip" %>
+      </span>
     <% end %>
-  <% end%>
-<%end%>
+  <% end %>
+<% end%>
 
 
 

@@ -12,7 +12,12 @@
           <ul>
             <li><span>Name:</span> <%= @driver.name %></li>
             <li><span>VIN:</span> <%= @driver.vin %> </li>
-            <li><span>Status:</span> <%= !@driver.is_active ? "DEACTIVATED" : @driver.available ? "AVAILABLE" : "UNAVAILABLE" %> </li>
+            <li><span>Status:</span> 
+              <% if @driver.is_active %>
+                <%= @driver.available ? "AVAILABLE" : "UNAVAILABLE" %>
+              <% else %>
+                <%= "DEACTIVATED" %>
+              <% end %> </li>
             <li><span>Total Earnings:</span> $<%= @driver.earnings %> </li>
             <li><span>Average Rating:</span> <%= @driver.average_rating %> </li>
           </ul>
