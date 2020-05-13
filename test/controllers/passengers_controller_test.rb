@@ -1,13 +1,28 @@
 require "test_helper"
 
 describe PassengersController do
-  # describe "index" do
-  #   # Your tests go here
-  # end
+  describe "index" do
+    it "gives success response for db with 0 passengers" do 
+      
+    end
 
-  # describe "show" do
-  #   # Your tests go here
-  # end
+    before do
+      Passenger.create(name: "Jimothy Jameson", phone_num: "1234567890")
+      @passenger = Passenger.first
+    end
+
+    it "gives success response for db with many passengers" do
+    end
+
+  end
+
+  describe "show" do
+    it "retrieves correct passenger" do
+    end
+
+    it "redirects accurately for invalid passenger ids" do
+    end
+  end
 
   # describe "new" do
   #   # Your tests go here
@@ -42,6 +57,5 @@ describe PassengersController do
 
     it "responds with failure when there are no available drivers" do
     end
-    
   end
 end
