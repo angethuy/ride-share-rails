@@ -27,7 +27,7 @@ li {
   margin: 20px 0px;
   list-style: none;
   background-color: #3E3F41;
-  background-image: image-url("highway.jpg");
+  background-image: image-url(asset_path("highway.jpg"));
   filter: grayscale(100%);
   background-size: 200%;
   border-radius: 12px;

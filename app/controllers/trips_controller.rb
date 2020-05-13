@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
   def show
+    session[:return_to] = request.referer
     @trip = Trip.find_by(id: params[:id])
     if @trip.nil?
       head :not_found
@@ -48,7 +49,7 @@ class TripsController < ApplicationController
 
     trip.destroy
     flash[:success] = "Successfully deleted trip ##{trip.id}"
-    redirect_to root_path
+    redirect_to session.delete(:return_to)
     return
   end
 
