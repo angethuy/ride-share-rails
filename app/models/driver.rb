@@ -20,10 +20,6 @@ class Driver < ApplicationRecord
     return all_available_drivers.empty? ? nil : all_available_drivers.last
   end
 
-  def self.any_available?
-    return !Driver.where(:available => true).empty?
-  end
-
   private 
 
   def calculate_rating
