@@ -116,12 +116,6 @@ class DriversController < ApplicationController
     redirect_to drivers_path
   end
 
-
-  def any_available?
-    return !Driver.where(:available => true).empty?
-  end
-
-
   private
 
   def driver_params
