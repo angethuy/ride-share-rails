@@ -20,6 +20,7 @@
 <h1>Rating Trip #<%= @trip.id %></h1>
 
 <div class="info">
+<p><%= @trip.passenger.name %> took this trip on <%= Date.parse(@trip.date).strftime("%B %d, %Y") %> with driver <%= @trip.driver.name%>. </p>
 <%= form_with model: @trip, id: "rating", class: 'create-trip' do |f| %>
 <%= f.label :rating %>
 <%= f.select :rating, options_for_select(["choose a number",1,2,3,4,5])%>
