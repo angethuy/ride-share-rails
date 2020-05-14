@@ -196,51 +196,57 @@ describe "update" do
   
     end
 
-    it "will not toggle the active status of a passenger who's on a ride" do
-      status = @passenger.is_active
+    it "will redirect and flash error if passenger active state change attempt is made during rides" do
+      # status = @passenger.is_active
       patch passenger_active_path(@passenger.id)
       must_redirect_to passenger_path(@passenger.id)
-      expect(@passenger.is_active).must_equal status
+      # expect(@passenger.is_active).must_equal status
+      assert_equal "Cannot change status while Ada Lovelace has a trip in progress! Please <a href=\"/trips/#{@trip.id}/edit\">rate Trip #{@trip.id}</a>", flash[:danger]
     end
 
-    it "will toggle active status of a passenger who's not on a ride" do
-      status = Passenger.last.is_active
-      patch passenger_active_path(Passenger.last.id)
+    it "will redirect and flash success on valid passenger active state change" do
+      # status = Passenger.last.is_active
+      passenger = Passenger.last
+      patch passenger_active_path(passenger.id)
       must_redirect_to passengers_path
-      expect(Passenger.last.is_active).must_equal !status
+      assert_equal "Successfully deactivated #{passenger.name}.", flash[:success]
+      # expect(Passenger.last.is_active).must_equal !status
     end
   end
 
-
-
   describe "new trip" do
+
     before do
       Passenger.create(name: "Big Bird", phone_num: "1800yellowbirb")
-      Driver.create(name: "Mickey Mouse", vin: "hey-its-mickey")
-      Driver.create(name: "Minnie Mouse", vin: "3984jdldd")
-      Driver.create(name: "Mickey Mouse", vin: "djf30kdjf")
+      post drivers_path, params: { driver: { name: "minnie mouse", vin: "it's minnie"}}
+      @passenger = Passenger.last
+      @driver = Driver.last
     end
 
-    it "adds a trip to the database" do
-    #   passenger = Passenger.last
-    #   expect(Driver.count).must_equal 3
-    #   patch passenger_new_trip_path(passenger.id)
-      
-     
-
-    # # expect { 
-    # #    patch passenger_new_trip_path(passenger.id)
-    # # }.must_differ "passenger.trips.count", 1
-    # must_redirect_to root_path
-    # #  must_redirect_to passenger_path(passenger.id)
-    # # #  expect(passenger.name).must_equal "Big Bird"
+    it "will redirect and flash success when creating a trip for a valid passenger and available driver" do
+      expect(@driver.available).must_equal true
+      patch passenger_new_trip_path(@passenger.id)
+      must_redirect_to passenger_path(@passenger.id)
+      trip = Trip.last
+      assert_equal "Successfully created <a href=\"/trips/#{trip.id}\">new trip ##{trip.id}</a>", flash[:success]
     end
 
-    it "responds with failure for passengers who are already on trips" do
-
+    it "redirects and responds with failure for passengers who are already on trips" do
+      expect(@driver.available).must_equal true
+      patch passenger_new_trip_path(@passenger.id)
+      expect(@passenger.has_inprogress_trip?).must_equal true
+      patch passenger_new_trip_path(@passenger.id)
+      must_redirect_to passenger_path(@passenger.id)
+      assert_equal "Passenger is already on a trip.", flash[:danger]  
     end
 
     it "responds with failure when there are no available drivers" do
+      patch passenger_new_trip_path(@passenger.id)
+      expect(Driver.get_next_available).must_equal nil
+      Passenger.create(name: "Hush Puppy", phone_num: "hushhushbork")
+      patch passenger_new_trip_path(Passenger.last.id)
+      must_redirect_to passenger_path(Passenger.last.id)
+      assert_equal "There are currently no drivers available for new trips.", flash[:danger] 
     end
   end
 end
